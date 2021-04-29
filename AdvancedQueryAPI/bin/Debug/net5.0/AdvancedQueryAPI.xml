@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AdvancedQueryAPI</name>
+    </assembly>
+    <members>
+        <member name="M:AdvancedQueryAPI.Controllers.MovieController.GetAll(System.Collections.Generic.IEnumerable{System.Object})">
+            <summary>
+            Get all movies, includes more advanced query parameters.
+            </summary>
+            <param name="queryParams"></param>
+            <returns></returns>
+        </member>
+        <member name="M:AdvancedQueryAPI.Controllers.MovieController.GetByID(System.Int64)">
+            <summary>
+            Get movie by id
+            </summary>
+            <param name="id"></param>
+            <returns></returns>
+        </member>
+    </members>
+</doc>

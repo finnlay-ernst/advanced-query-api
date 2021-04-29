@@ -1,0 +1,12 @@
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\bin\Debug\net5.0\ExpandedQueryParams.deps.json
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\bin\Debug\net5.0\ExpandedQueryParams.dll
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\bin\Debug\net5.0\ref\ExpandedQueryParams.dll
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\bin\Debug\net5.0\ExpandedQueryParams.pdb
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\obj\Debug\net5.0\ExpandedQueryParams.csprojAssemblyReference.cache
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\obj\Debug\net5.0\ExpandedQueryParams.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\obj\Debug\net5.0\ExpandedQueryParams.AssemblyInfoInputs.cache
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\obj\Debug\net5.0\ExpandedQueryParams.AssemblyInfo.cs
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\obj\Debug\net5.0\ExpandedQueryParams.csproj.CoreCompileInputs.cache
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\obj\Debug\net5.0\ExpandedQueryParams.dll
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\obj\Debug\net5.0\ref\ExpandedQueryParams.dll
+C:\Users\ferns\source\repos\advanced-query\ExpandedQueryParams\obj\Debug\net5.0\ExpandedQueryParams.pdb
