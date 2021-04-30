@@ -51,9 +51,21 @@ namespace AdvancedQueryAPI.Providers
             dbContext.SaveChanges();
         }
 
-        public async Task<IEnumerable<Models.Movie>> GetAllAsync(IntAdvancedQueryParam priceQuery)
+        public async Task<IEnumerable<Models.Movie>> GetAllAsync(
+            StringAdvancedQueryParam nameQuery,
+            StringAdvancedQueryParam directorQuery,
+            IntAdvancedQueryParam priceQuery,
+            IntAdvancedQueryParam profitQuery,
+            DecimalAdvancedQueryParam ratingQuery
+        )
         {
-            var result = await dbContext.Movies.Where(m => priceQuery.Passes(m.Price)).ToListAsync();
+            var result = await dbContext.Movies.Where(m => 
+                nameQuery.Passes(m.Name) &&
+                directorQuery.Passes(m.Director) &&
+                priceQuery.Passes(m.Price) &&
+                profitQuery.Passes(m.Profit) &&
+                ratingQuery.Passes(m.Rating)
+            ).ToListAsync();
             return mapper.Map<IEnumerable<Models.Movie>>(result);
         }
 

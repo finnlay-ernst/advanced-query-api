@@ -38,12 +38,14 @@ namespace AdvancedQueryAPI.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> GetAll (
             [ModelBinder(Name = nameof(Movie.Name), BinderType = typeof(AdvancedModelBinder))] StringAdvancedQueryParam nameQueryParam,
+            [ModelBinder(Name = nameof(Movie.Director), BinderType = typeof(AdvancedModelBinder))] StringAdvancedQueryParam directorQueryParam,
             [ModelBinder(Name = nameof(Movie.Price), BinderType = typeof(AdvancedModelBinder))] IntAdvancedQueryParam priceQueryParam,
+            [ModelBinder(Name = nameof(Movie.Profit), BinderType = typeof(AdvancedModelBinder))] IntAdvancedQueryParam profitQueryParam,
             [ModelBinder(Name = nameof(Movie.Rating), BinderType = typeof(AdvancedModelBinder))] DecimalAdvancedQueryParam ratingQueryParam
             )
         {
-            logger.LogInformation($"Query object received: {nameQueryParam}");
-            var result = await provider.GetAllAsync(priceQueryParam);
+            //logger.LogInformation($"Query object received: {nameQueryParam}");
+            var result = await provider.GetAllAsync(nameQueryParam, directorQueryParam, priceQueryParam, profitQueryParam, ratingQueryParam);
             return Ok(result);
         }
 

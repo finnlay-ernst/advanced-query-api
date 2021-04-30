@@ -41,7 +41,11 @@ namespace ExpandedQueryParams.QueryParams
 
         public override bool Passes(object subject)
         {
-            return true;
+            string castedSubject = (string)subject;
+            return
+                (LIKE == null || castedSubject.Contains(LIKE)) &&
+                (NOT == null || !castedSubject.Equals(NOT)) &&
+                (IS == null || castedSubject.Equals(IS));
         }
     }
 }

@@ -4,7 +4,7 @@
         <name>AdvancedQueryAPI</name>
     </assembly>
     <members>
-        <member name="M:AdvancedQueryAPI.Controllers.MovieController.GetAll(ExpandedQueryParams.QueryParams.StringAdvancedQueryParam,ExpandedQueryParams.QueryParams.IntAdvancedQueryParam,ExpandedQueryParams.QueryParams.DecimalAdvancedQueryParam)">
+        <member name="M:AdvancedQueryAPI.Controllers.MovieController.GetAll(ExpandedQueryParams.QueryParams.StringAdvancedQueryParam,ExpandedQueryParams.QueryParams.StringAdvancedQueryParam,ExpandedQueryParams.QueryParams.IntAdvancedQueryParam,ExpandedQueryParams.QueryParams.IntAdvancedQueryParam,ExpandedQueryParams.QueryParams.DecimalAdvancedQueryParam)">
             <summary>
             Get all movies, includes more advanced query parameters.
             </summary>

@@ -10,7 +10,13 @@ namespace AdvancedQueryAPI.Interfaces
     public interface IMovieProvider
     {
 
-        public Task<IEnumerable<Movie>> GetAllAsync(IntAdvancedQueryParam priceQuery);
+        public Task<IEnumerable<Movie>> GetAllAsync(
+            StringAdvancedQueryParam nameQuery, 
+            StringAdvancedQueryParam directorQuery, 
+            IntAdvancedQueryParam priceQuery, 
+            IntAdvancedQueryParam profitQuery, 
+            DecimalAdvancedQueryParam ratingQuery
+        );
         public Task<Movie> GetByIdAsync(int id);
 
     }
