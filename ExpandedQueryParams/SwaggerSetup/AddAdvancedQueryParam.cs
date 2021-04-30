@@ -1,6 +1,7 @@
 ﻿using ExpandedQueryParams.ModelBinding;
 using Microsoft.AspNetCore.Mvc.Abstractions;
 using Microsoft.AspNetCore.Mvc.Controllers;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerGen;
 using System;
@@ -11,45 +12,45 @@ using System.Reflection;
 namespace ExpandedQueryParams.SwaggerSetup
 {
     public class AddAdvancedQueryParam<T> : IOperationFilter
-    {
+    {        
         public void Apply(OpenApiOperation operation, OperationFilterContext context)
         {
             ControllerActionDescriptor descriptor = (ControllerActionDescriptor)context.ApiDescription.ActionDescriptor;
 
-            Type? binderType = descriptor.Parameters.First()?.BindingInfo?.BinderType;
-
-            if (binderType == null) 
+            foreach (ControllerParameterDescriptor parameter in descriptor.Parameters)
             {
-                return;
-            }
+                BindingInfo? binderInfo = parameter.BindingInfo;
+                if (binderInfo == null || binderInfo.BinderType == null || binderInfo.BinderModelName == null) 
+                {
+                    return;
+                }
             
-            // If the parameter is bound by our custom binder
-            if (descriptor != null && binderType.Name.Contains("AdvancedModelBinder")) 
-            {                
-                operation.Parameters.Clear();
-                
-                var modelObjectProperties = typeof(T).GetProperties();
-                foreach (PropertyInfo modelObjectProp in modelObjectProperties)
-                {                
-                    string modelName = modelObjectProp.Name;
-                    Type queryType = modelObjectProp.PropertyType;                    
+                // If the parameter is bound by our custom binder
+                if (descriptor != null && binderInfo.BinderType.Name.Contains("AdvancedModelBinder")) 
+                {             
+                    
+                                
+                    string enabledProperty = binderInfo.BinderModelName;
+                    Type enabledPropertyType = typeof(T).GetProperty(enabledProperty).PropertyType;                    
+                    
+                    operation.Parameters.Remove(operation.Parameters.ToList().Find(parameter => parameter.Name == enabledProperty));
                     
                     // C# switch case can't match types :( (or other non-static cases)
-                    switch (queryType.Name) 
+                    switch (enabledPropertyType.Name) 
                     {
                         case nameof(Int32):
-                            IntApiParams(modelName).ForEach(param => operation.Parameters.Add(param));                                                      
+                            IntApiParams(enabledProperty).ForEach(param => operation.Parameters.Add(param));                                                      
                             break;
                         case nameof(Decimal):
-                            DecimalApiParams(modelName).ForEach(param => operation.Parameters.Add(param));                                                      
+                            DecimalApiParams(enabledProperty).ForEach(param => operation.Parameters.Add(param));                                                      
                             break;
                         case nameof(String):
-                            StringApiParams(modelName).ForEach(param => operation.Parameters.Add(param));                                                      
+                            StringApiParams(enabledProperty).ForEach(param => operation.Parameters.Add(param));                                                      
                             break;
                         default:
                             // Unrecognised query type
                             continue;
-                    }
+                    }                    
                 }
             }
         }

@@ -2,6 +2,7 @@
 using AdvancedQueryAPI.Models;
 using ExpandedQueryParams;
 using ExpandedQueryParams.ModelBinding;
+using ExpandedQueryParams.QueryParams;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -35,10 +36,14 @@ namespace AdvancedQueryAPI.Controllers
         [HttpGet]
         [ProducesResponseType(typeof(IEnumerable<Movie>), StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> GetAll ([ModelBinder(typeof(AdvancedModelBinder<Movie>))] IEnumerable<object> queryParams)
+        public async Task<IActionResult> GetAll (
+            [ModelBinder(Name = nameof(Movie.Name), BinderType = typeof(AdvancedModelBinder))] StringAdvancedQueryParam nameQueryParam,
+            [ModelBinder(Name = nameof(Movie.Price), BinderType = typeof(AdvancedModelBinder))] IntAdvancedQueryParam priceQueryParam,
+            [ModelBinder(Name = nameof(Movie.Rating), BinderType = typeof(AdvancedModelBinder))] DecimalAdvancedQueryParam ratingQueryParam
+            )
         {
-            logger.LogInformation($"Query object received: {queryParams}");
-            var result = await provider.GetAllAsync(queryParams);
+            logger.LogInformation($"Query object received: {nameQueryParam}");
+            var result = await provider.GetAllAsync(priceQueryParam);
             return Ok(result);
         }
 

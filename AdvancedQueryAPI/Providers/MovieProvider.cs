@@ -51,33 +51,9 @@ namespace AdvancedQueryAPI.Providers
             dbContext.SaveChanges();
         }
 
-        public async Task<IEnumerable<Models.Movie>> GetAllAsync(IEnumerable<object> queryParams)
+        public async Task<IEnumerable<Models.Movie>> GetAllAsync(IntAdvancedQueryParam priceQuery)
         {
-            //var result = await dbContext.Movies.ToListAsync();
-            IntAdvancedQueryParam aqpId = (IntAdvancedQueryParam)queryParams.Where(o => ((AdvancedQueryParam) o).Name == "Id").First();
-            List<AdvancedQueryParam> advancedQueryParams = queryParams.Select<object, AdvancedQueryParam>((o, i) => {
-                var prop = typeof(Movie).GetProperty(((AdvancedQueryParam)o).Name);
-                
-                if (prop.PropertyType == typeof(int))
-                {
-                    return new IntAdvancedQueryParam(prop.Name);
-                }
-                else if (prop.PropertyType == typeof(decimal))
-                {
-                    return new DecimalAdvancedQueryParam(prop.Name);
-                }
-                else
-                {
-                    return new StringAdvancedQueryParam(prop.Name);
-                }
-            }).ToList();
-            //var aqp = advancedQueryParams.Find(qp => qp.Name == newField.Name);
-            //return aqp == null || agg && aqp.Passes(typeof(Movie).GetProperty(newField.Name).GetValue(m));
-            
-            // C# CAN"T CONVERT THIS TO SQL, NEED A DIFFERENT APPROACH
-            var result = await dbContext.Movies.Where(m => typeof(Movie).GetProperties()
-            .Aggregate(true, (agg, newField) => 
-                agg && (advancedQueryParams.Find(qp => qp.Name == newField.Name) == null || advancedQueryParams.Find(qp => qp.Name == newField.Name).Passes(typeof(Movie).GetProperty(newField.Name).GetValue(m))))).ToListAsync();
+            var result = await dbContext.Movies.Where(m => priceQuery.Passes(m.Price)).ToListAsync();
             return mapper.Map<IEnumerable<Models.Movie>>(result);
         }
 
